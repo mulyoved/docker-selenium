@@ -192,6 +192,24 @@ RUN groupadd -g ${NORMAL_USER_GID} ${NORMAL_GROUP} \
   && echo 'ALL ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers
 ENV NORMAL_USER_HOME /home/${NORMAL_USER}
 
+#==============================
+# Agent
+#==============================
+RUN apt-get update -qqy
+RUN apt-get -qqy --no-install-recommends --force-yes install nodejs
+RUN apt-get -qqy --no-install-recommends --force-yes install npm
+RUN apt-get -qqy --no-install-recommends --force-yes install psmisc
+ADD /agent /agent
+
+RUN cd agent && \
+    npm install && \
+    mkdir .tmp && \
+    mkdir reports && \
+    mkdir /test-results && \
+    chmod +666 /test-results && \
+    chmod +777 .tmp && \
+    chmod +666 reports
+
 #=====================
 # Use Normal User now
 #=====================
@@ -440,7 +458,7 @@ RUN pip install --upgrade \
 #-------------------#
 # Will split firefox versions in smaller chunks so the layers are smaller
 # All firefox versions we provide from oldes to newest
-ENV FIREFOX_VERSIONS1 "24.0, 25.0.1, 26.0, 27.0.1, 28.0, 29.0.1"
+#ENV FIREFOX_VERSIONS1 "24.0, 25.0.1, 26.0, 27.0.1, 28.0, 29.0.1"
 RUN cd ${NORMAL_USER_HOME}/firefox-src \
   && for FF_VER in $(echo ${FIREFOX_VERSIONS1} | tr "," "\n"); do \
          mozdownload --application=firefox \
@@ -457,7 +475,7 @@ RUN cd ${NORMAL_USER_HOME}/firefox-src \
 #-------------------#
 # FIREFOX_VERSIONS2 #
 #-------------------#
-ENV FIREFOX_VERSIONS2 "30.0, 31.0, 32.0.3, 33.0.3, 34.0.5, 35.0.1"
+#ENV FIREFOX_VERSIONS2 "30.0, 31.0, 32.0.3, 33.0.3, 34.0.5, 35.0.1"
 RUN cd ${NORMAL_USER_HOME}/firefox-src \
   && for FF_VER in $(echo ${FIREFOX_VERSIONS2} | tr "," "\n"); do \
          mozdownload --application=firefox \
@@ -476,7 +494,8 @@ RUN cd ${NORMAL_USER_HOME}/firefox-src \
 #-------------------#
 # Latest available firefox version
 # ENV FIREFOX_LATEST_VERSION latest #this also wors
-ENV FIREFOX_VERSIONS3 "36.0.4, 37.0.2, 38.0.6, 39.0"
+#ENV FIREFOX_VERSIONS3 "36.0.4, 37.0.2, 38.0.6, 39.0"
+ENV FIREFOX_VERSIONS3 "39.0"
 RUN cd ${NORMAL_USER_HOME}/firefox-src \
   && for FF_VER in $(echo ${FIREFOX_VERSIONS3} | tr "," "\n"); do \
          mozdownload --application=firefox \
@@ -780,21 +799,3 @@ RUN [ $(find ./ -mtime -1 -type f -name "scm-source.json" 2>/dev/null) ] \
 # ENTRYPOINT ["entry.sh"]
 # CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 CMD ["/bin-utils/entry.sh"]
-
-#==============================
-# Agent
-#==============================
-RUN apt-get update -qqy
-RUN apt-get -qqy --no-install-recommends --force-yes install nodejs
-RUN apt-get -qqy --no-install-recommends --force-yes install npm
-RUN apt-get -qqy --no-install-recommends --force-yes install psmisc
-ADD /agent /agent
-
-RUN cd agent && \
-    npm install && \
-    mkdir .tmp && \
-    mkdir reports && \
-    mkdir /test-results && \
-    chmod +666 /test-results && \
-    chmod +777 .tmp && \
-    chmod +666 reports
