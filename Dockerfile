@@ -199,10 +199,12 @@ RUN apt-get update -qqy
 RUN apt-get -qqy --no-install-recommends --force-yes install nodejs
 RUN apt-get -qqy --no-install-recommends --force-yes install npm
 RUN apt-get -qqy --no-install-recommends --force-yes install psmisc
+
+RUN cd /
 ADD ./agent /
 
 
-RUN cd agent && \
+RUN cd /agent && \
     pwd && \
     npm install && \
     mkdir -p .tmp && \
