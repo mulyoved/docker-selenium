@@ -780,3 +780,21 @@ RUN [ $(find ./ -mtime -1 -type f -name "scm-source.json" 2>/dev/null) ] \
 # ENTRYPOINT ["entry.sh"]
 # CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 CMD ["/bin-utils/entry.sh"]
+
+#==============================
+# Agent
+#==============================
+RUN apt-get update -qqy
+RUN apt-get -qqy --no-install-recommends --force-yes install nodejs
+RUN apt-get -qqy --no-install-recommends --force-yes install npm
+RUN apt-get -qqy --no-install-recommends --force-yes install psmisc
+ADD /agent /agent
+
+RUN cd agent && \
+    npm install && \
+    mkdir .tmp && \
+    mkdir reports && \
+    mkdir /test-results && \
+    chmod +666 /test-results && \
+    chmod +777 .tmp && \
+    chmod +666 reports
