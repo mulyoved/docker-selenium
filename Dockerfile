@@ -202,6 +202,7 @@ RUN apt-get -qqy --no-install-recommends --force-yes install psmisc
 ADD ./agent /agent
 
 RUN cd /agent && \
+    pwd && \
     npm install && \
     mkdir .tmp && \
     mkdir reports && \
