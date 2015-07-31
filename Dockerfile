@@ -201,14 +201,15 @@ RUN apt-get -qqy --no-install-recommends --force-yes install npm
 RUN apt-get -qqy --no-install-recommends --force-yes install psmisc
 ADD ./agent /agent
 
-RUN cd agent && \
+RUN cd /agent && \
     npm install && \
     mkdir .tmp && \
     mkdir reports && \
     mkdir /test-results && \
     chmod +666 /test-results && \
     chmod +777 .tmp && \
-    chmod +666 reports
+    chmod +666 reports && \
+    cd \
 
 #=====================
 # Use Normal User now
