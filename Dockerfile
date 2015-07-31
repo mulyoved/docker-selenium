@@ -200,8 +200,7 @@ RUN apt-get -qqy --no-install-recommends --force-yes install nodejs
 RUN apt-get -qqy --no-install-recommends --force-yes install npm
 RUN apt-get -qqy --no-install-recommends --force-yes install psmisc
 
-RUN cd /
-ADD ./agent /
+ADD ./agent /agent
 
 
 RUN cd /agent && \
