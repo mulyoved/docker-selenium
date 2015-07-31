@@ -1,0 +1,5 @@
+cd /agent
+git pull
+cd /docker-selenium
+git pull
+docker build -t="elgalu/docker-selenium:local" .
