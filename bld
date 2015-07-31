@@ -1,5 +1,5 @@
-cd ~/agent
+cd agent
 git pull
-cd ~/docker-selenium
+cd ..
 git pull
 docker build -t="elgalu/docker-selenium:v0.6.1" .
