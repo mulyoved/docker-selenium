@@ -203,7 +203,7 @@ ADD ./agent /agent
 
 RUN cd /agent && \
     pwd && \
-    ls && \
+    ls agent && \
     npm install && \
     mkdir .tmp && \
     mkdir reports && \
