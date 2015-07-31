@@ -204,9 +204,9 @@ ADD ./agent /
 RUN cd /agent && \
     pwd && \
     npm install && \
-    mkdir .tmp && \
-    mkdir reports && \
-    mkdir /test-results && \
+    mkdir -p .tmp && \
+    mkdir -p reports && \
+    mkdir -p /test-results && \
     chmod +666 /test-results && \
     chmod +777 .tmp && \
     chmod +666 reports && \
