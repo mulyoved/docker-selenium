@@ -2,4 +2,4 @@ cd ~/agent
 git pull
 cd ~/docker-selenium
 git pull
-docker build -t="elgalu/docker-selenium:local" .
+docker build -t="elgalu/docker-selenium:v0.6.1" .
