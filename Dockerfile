@@ -203,7 +203,6 @@ ADD ./agent /
 
 RUN cd /agent && \
     pwd && \
-    ls agent && \
     npm install && \
     mkdir .tmp && \
     mkdir reports && \
@@ -211,7 +210,7 @@ RUN cd /agent && \
     chmod +666 /test-results && \
     chmod +777 .tmp && \
     chmod +666 reports && \
-    cd \
+    cd /
 
 #=====================
 # Use Normal User now
