@@ -192,28 +192,6 @@ RUN groupadd -g ${NORMAL_USER_GID} ${NORMAL_GROUP} \
   && echo 'ALL ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers
 ENV NORMAL_USER_HOME /home/${NORMAL_USER}
 
-#==============================
-# Agent
-#==============================
-RUN apt-get update -qqy
-RUN apt-get -qqy --no-install-recommends --force-yes install nodejs
-RUN apt-get -qqy --no-install-recommends --force-yes install npm
-RUN apt-get -qqy --no-install-recommends --force-yes install psmisc
-
-ADD ./agent /agent
-
-
-RUN cd /agent && \
-    pwd && \
-    npm install && \
-    mkdir -p .tmp && \
-    mkdir -p reports && \
-    mkdir -p /test-results && \
-    chmod +666 /test-results && \
-    chmod +777 .tmp && \
-    chmod +666 reports && \
-    cd /
-
 #=====================
 # Use Normal User now
 #=====================

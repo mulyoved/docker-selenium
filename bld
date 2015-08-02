@@ -1,5 +1,2 @@
-cd agent
-git pull
-cd ..
 git pull
 docker build -t mulyoved/docker-selenium:v0.6.1 .
